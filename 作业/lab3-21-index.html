@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文学书苑</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI','Microsoft YaHei',serif}
+        body{background:linear-gradient(135deg,#f5efe0 0%,#e8dfca 100%);color:#3a2c1e;line-height:1.7;padding:20px}
+        .container{max-width:1200px;margin:0 auto;background:rgba(255,253,248,0.95);box-shadow:0 5px 25px rgba(58,44,30,0.15);border-radius:8px;overflow:hidden;border:1px solid #d4c9b8}
+        .container::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,#8b6b46,#d4a76a,#8b6b46);z-index:10}
+        header{background:linear-gradient(to right,#5d4a2e,#8b6b46);color:#f8f3e6;padding:30px 20px;text-align:center;position:relative;overflow:hidden}
+        h1{font-size:2.8rem;margin-bottom:10px;font-weight:300;letter-spacing:2px;text-shadow:2px 2px 4px rgba(0,0,0,0.3)}
+        .header-subtitle{font-size:1.2rem;font-style:italic;opacity:0.9;margin-bottom:15px}
+        .quote{font-size:1rem;max-width:600px;margin:0 auto;padding:10px;border-left:3px solid #d4a76a;background:rgba(255,255,255,0.1);border-radius:0 5px 5px 0}
+        nav{background-color:#6d5d4b;padding:0;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+        nav ul{list-style:none;display:flex;justify-content:center}
+        nav li{margin:0}
+        nav a{color:#f1e8d0;text-decoration:none;padding:15px 25px;display:block;transition:all 0.3s;font-weight:500;position:relative;border-right:1px solid rgba(255,255,255,0.1)}
+        nav a:last-child{border-right:none}
+        nav a::before{content:"";position:absolute;bottom:0;left:0;width:0;height:3px;background:#d4a76a;transition:width 0.3s}
+        nav a:hover::before{width:100%}
+        nav a:hover{background-color:#5d4a2e;cursor:pointer}
+        .main-content{padding:30px;overflow:hidden}
+        .left-sidebar{width:22%;float:left;background:linear-gradient(to bottom,#f8f3e6,#f1e8d0);padding:20px;border-radius:5px;margin-right:3%;border:1px solid #d4c9b8;box-shadow:0 3px 10px rgba(0,0,0,0.05);margin-bottom:25px;position:relative}
+        .left-sidebar::before{content:"";position:absolute;top:0;left:0;bottom:0;width:5px;background:linear-gradient(to bottom,#8b6b46,#d4a76a,#8b6b46);border-radius:5px 0 0 5px}
+        .content{width:50%;float:left;background-color:rgba(255,255,255,0.7);padding:25px;border-radius:5px;border:1px solid #d4c9b8;margin-bottom:25px;box-shadow:0 3px 10px rgba(0,0,0,0.05)}
+        .right-sidebar{width:22%;float:right;background:linear-gradient(to bottom,#f8f3e6,#f1e8d0);padding:20px;border-radius:5px;border:1px solid #d4c9b8;margin-bottom:25px;box-shadow:0 3px 10px rgba(0,0,0,0.05);position:relative}
+        .right-sidebar::before{content:"";position:absolute;top:0;right:0;bottom:0;width:5px;background:linear-gradient(to bottom,#8b6b46,#d4a76a,#8b6b46);border-radius:0 5px 5px 0}
+        footer{background:linear-gradient(to right,#5d4a2e,#8b6b46);color:#f1e8d0;text-align:center;padding:20px;clear:both;border-top:1px solid #d4c9b8}
+        .highlight-box{background:linear-gradient(135deg,#8b6b46,#a98452);color:#f8f3e6;padding:15px 20px;border-radius:5px;position:relative;top:5px;left:10px;margin-bottom:25px;box-shadow:0 3px 10px rgba(0,0,0,0.1);border-left:5px solid #d4a76a}
+        .btn{display:inline-block;background:linear-gradient(to bottom,#8b6b46,#6d5d4b);color:#f8f3e6;padding:10px 20px;border:none;border-radius:3px;text-decoration:none;transition:all 0.3s;font-weight:500;box-shadow:0 2px 5px rgba(0,0,0,0.2)}
+        .btn:hover{background:linear-gradient(to bottom,#9c7a55,#7d6a55);cursor:pointer;transform:translateY(-2px);box-shadow:0 4px 8px rgba(0,0,0,0.2)}
+        .book-container{display:flex;flex-wrap:wrap;gap:20px;margin-top:20px}
+        .book-item{width:calc(50% - 10px);background:linear-gradient(to bottom,#f8f3e6,#f1e8d0);border-radius:5px;padding:15px;box-shadow:0 3px 10px rgba(0,0,0,0.08);transition:transform 0.3s,box-shadow 0.3s;border:1px solid #d4c9b8;position:relative;overflow:hidden}
+        .book-item::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#8b6b46,#d4a76a,#8b6b46)}
+        .book-item:hover{transform:translateY(-5px);box-shadow:0 8px 20px rgba(0,0,0,0.12)}
+        .book-image{float:left;width:100px;height:140px;margin-right:15px;margin-bottom:10px;background:linear-gradient(135deg,#a98452,#8b6b46);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#f8f3e6;text-align:center;box-shadow:0 3px 8px rgba(0,0,0,0.15);position:relative;overflow:hidden}
+        .book-image::after{content:"";position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(45deg,transparent 40%,rgba(255,255,255,0.2) 50%,transparent 60%)}
+        .book-info{overflow:hidden}
+        .book-title{font-size:1.2rem;font-weight:600;margin-bottom:5px;color:#5d4a2e;border-bottom:1px dashed #d4c9b8;padding-bottom:5px}
+        .book-author{font-size:0.9rem;color:#7d6a55;margin-bottom:10px;font-style:italic}
+        .book-description{font-size:0.9rem;line-height:1.5;margin-bottom:15px;color:#5d4a2e}
+        .price-section{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:10px;border-top:1px dashed #d4c9b8}
+        .price{font-size:1.2rem;font-weight:bold;color:#8b4513}
+        .original-price{font-size:0.9rem;color:#a98452;text-decoration:line-through;margin-left:5px}
+        .discount{background:linear-gradient(to bottom,#d4a76a,#b08d5a);color:white;padding:3px 10px;border-radius:3px;font-size:0.8rem;font-weight:bold}
+        .literary-quote{background:rgba(139,107,70,0.05);border-left:4px solid #d4a76a;padding:15px;margin:20px 0;font-style:italic;color:#5d4a2e;border-radius:0 5px 5px 0}
+        .quote-author{text-align:right;font-size:0.9rem;color:#7d6a55;margin-top:10px}
+        @media (max-width:768px){.left-sidebar,.content,.right-sidebar{width:100%;float:none;margin-right:0;margin-bottom:20px}.book-item{width:100%}nav ul{flex-direction:column}nav a{border-right:none;border-bottom:1px solid rgba(255,255,255,0.1)}}
+        h2{color:#5d4a2e;margin-bottom:15px;border-bottom:2px solid #d4c9b8;padding-bottom:8px;font-weight:500;position:relative}
+        h2::after{content:"";position:absolute;bottom:-2px;left:0;width:50px;height:2px;background:#d4a76a}
+        h3{color:#7d6a55;margin:20px 0 10px;font-weight:500}
+        p{margin-bottom:15px;color:#5d4a2e}
+        .category-title{margin-top:30px;padding-bottom:10px;border-bottom:2px solid #d4a76a;color:#5d4a2e;font-size:1.4rem}
+        .sidebar-list{list-style:none}
+        .sidebar-list li{padding:8px 0;border-bottom:1px dashed #d4c9b8}
+        .sidebar-list li:last-child{border-bottom:none}
+        .sidebar-list a{color:#5d4a2e;text-decoration:none;transition:color 0.3s;display:flex;align-items:center}
+        .sidebar-list a:hover{color:#8b6b46}
+        .decorative-line{height:1px;background:linear-gradient(90deg,transparent,#d4a76a,transparent);margin:20px 0}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>文学书苑</h1>
+                <div class="header-subtitle">探索文字之美，品味文学之韵</div>
+                <div class="quote">"书籍是屹立在时间的汪洋大海中的灯塔。" — 惠普尔</div>
+            </div>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="#">首页</a></li>
+                <li><a href="#">文学经典</a></li>
+                <li><a href="#">现代文学</a></li>
+                <li><a href="#">世界文学</a></li>
+                <li><a href="#">作家专栏</a></li>
+                <li><a href="#">联系我们</a></li>
+            </ul>
+        </nav>
+        
+        <div class="main-content">
+            <div class="highlight-box">本周推荐：经典文学作品限时特惠，满100减20！</div>
+            
+            <aside class="left-sidebar">
+                <h2>文学分类</h2>
+                <ul class="sidebar-list">
+                    <li><a href="#">古典文学</a></li>
+                    <li><a href="#">浪漫主义</a></li>
+                    <li><a href="#">现代主义</a></li>
+                    <li><a href="#">魔幻现实主义</a></li>
+                    <li><a href="#">戏剧文学</a></li>
+                    <li><a href="#">散文随笔</a></li>
+                </ul>
+                
+                <div class="decorative-line"></div>
+            </aside>
+            
+            <main class="content">
+                <h2>经典文学作品</h2>                              
+                <h3 class="category-title">古典文学</h3>
+                <div class="book-container">
+                    <div class="book-item">
+                        <div class="book-image">红楼梦<br><img src="/image/红楼梦.jpg"></div>
+                        <div class="book-info">
+                            <div class="book-title">红楼梦</div>
+                            <div class="book-author">作者：曹雪芹</div>
+                            <div class="book-description">中国古典四大名著之首，一部具有世界影响力的人情小说，中国封建社会的百科全书。</div>
+                            <div class="price-section">
+                                <div>
+                                    <span class="price">¥45.80</span>
+                                    <span class="original-price">¥58.00</span>
+                                    <span class="discount">7.9折</span>
+                                </div>
+                                <a href="#" class="btn">加入书架</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="book-item">
+                        <div class="book-image"><br><img src="/image/诗经.jpg"></div>
+                        <div class="book-info">
+                            <div class="book-title">诗经</div>
+                            <div class="book-author">作者：佚名（收集整理）</div>
+                            <div class="book-description">中国第一部诗歌总集，收集了西周初年至春秋中叶的诗歌，共311篇。</div>
+                            <div class="price-section">
+                                <div>
+                                    <span class="price">¥32.50</span>
+                                    <span class="original-price">¥40.00</span>
+                                    <span class="discount">8.1折</span>
+                                </div>
+                                <a href="#" class="btn">加入书架</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="category-title">现代文学</h3>
+                <div class="book-container">
+                    <div class="book-item">
+                        <div class="book-image"><br><img src=/image/围城.jpg></div>
+                        <div class="book-info">
+                            <div class="book-title">围城</div>
+                            <div class="book-author">作者：钱钟书</div>
+                            <div class="book-description">中国现代文学史上一部风格独特的讽刺小说，被誉为"新儒林外史"。</div>
+                            <div class="price-section">
+                                <div>
+                                    <span class="price">¥28.60</span>
+                                    <span class="original-price">¥35.00</span>
+                                    <span class="discount">8.2折</span>
+                                </div>
+                                <a href="#" class="btn">加入书架</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="book-item">
+                        <div class="book-image">边城<br><img src=/image/边城.jpg></div>
+                        <div class="book-info">
+                            <div class="book-title">边城</div>
+                            <div class="book-author">作者：沈从文</div>
+                            <div class="book-description">以20世纪30年代川湘交界的边城小镇茶峒为背景，描绘了湘西地区特有的风土人情。</div>
+                            <div class="price-section">
+                                <div>
+                                    <span class="price">¥24.80</span>
+                                    <span class="original-price">¥30.00</span>
+                                    <span class="discount">8.3折</span>
+                                </div>
+                                <a href="#" class="btn">加入书架</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            
+            <aside class="right-sidebar">
+       
+                
+                <div class="decorative-line"></div>
+                
+                <h2>文学大师</h2>
+                <ul class="sidebar-list">
+                    <li><a href="#">鲁迅</a></li>
+                    <li><a href="#">老舍</a></li>
+                    <li><a href="#">巴金</a></li>
+                    <li><a href="#">茅盾</a></li>
+                    <li><a href="#">沈从文</a></li>
+                </ul>
+                
+                <div class="decorative-line"></div>
+                <div style="background:linear-gradient(135deg,#d4a76a,#b08d5a);color:white;padding:15px;margin:15px 0;border-radius:5px">
+                    <p>会员专享：借阅图书免运费，参与线下活动优先报名！</p>
+                </div>
+            </aside>
+        </div>
+        
+        <footer>
+            <p>文学书苑</p>
+            <p>地址：北京市东城区文学路123号 | 电话：010-12345678</p>
+        </footer>
+    </div>
+</body>
+</html>
