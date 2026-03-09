@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>拳击空击训练器</title>
+    <link rel="stylesheet" href="../css/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>🥊 拳击空击训练器</h1>
+      </header>
+
+      <main>
+        <div class="game-area">
+          <div class="instruction-display">
+            <div id="current-instruction" class="instruction-text">
+              准备就绪
+            </div>
+          </div>
+
+          <div class="controls">
+            <div class="key-hints">
+              <div class="key-hint">
+                <kbd>W/↑</kbd>
+                <span>上勾拳</span>
+              </div>
+              <div class="key-hint">
+                <kbd>A/←</kbd>
+                <span>左直拳</span>
+              </div>
+              <div class="key-hint">
+                <kbd>S/↓</kbd>
+                <span>下勾拳</span>
+              </div>
+              <div class="key-hint">
+                <kbd>D/→</kbd>
+                <span>右直拳</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="game-buttons">
+            <button id="start-btn" class="btn btn-primary">开始训练</button>
+          </div>
+        </div>
+
+        <aside class="stats-panel">
+          <div class="stat-item">
+            <h3>当前连击</h3>
+            <span id="current-combo" class="stat-value">0</span>
+          </div>
+          <div class="stat-item">
+            <h3>准确率</h3>
+            <span id="accuracy" class="stat-value">0%</span>
+          </div>
+          <div class="stat-item">
+            <h3>平均反应时间</h3>
+            <span id="avg-reaction" class="stat-value">0ms</span>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <script src="../JavaScript/game.js"></script>
+  </body>
+</html>
