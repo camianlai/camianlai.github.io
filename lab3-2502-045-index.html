@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>春韵-文学书苑</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/lab3-index.css">
+</head>
+<body>
+    <!-- 消息提示 -->
+    <div class="message-toast" id="messageToast">
+        <span class="toast-text"></span>
+    </div>
+
+    <!-- 登录模态框 -->
+    <div class="login-modal" id="loginModal">
+        <div class="login-form">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <h2>用户登录</h2><br>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">用户名：</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">密码：</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="remember-me">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">记住我</label>
+                </div>
+                <button type="submit" class="login-btn">登录</button>
+            </form>
+            <div class="register-link">
+                <p>还没有账号？<a href="#" id="registerLink">立即注册</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 注册模态框 -->
+    <div class="login-modal" id="registerModal">
+        <div class="login-form">
+            <button class="close-modal" id="closeRegisterModal">&times;</button>
+            <h2>用户注册</h2><br>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="reg-username">用户名：</label>
+                    <input type="text" id="reg-username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-email">邮箱：</label>
+                    <input type="email" id="reg-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-password">密码：</label>
+                    <input type="password" id="reg-password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-confirm-password">确认密码：</label>
+                    <input type="password" id="reg-confirm-password" name="confirm-password" required>
+                </div>
+                <div class="remember-me">
+                    <input type="checkbox" id="agree-terms" name="agree-terms" required>
+                    <label for="agree-terms">我已阅读并同意服务条款</label>
+                </div>
+                <button type="submit" class="login-btn">注册</button>
+            </form>
+            <div class="register-link">
+                <p>已有账号？<a href="#" id="loginLink">立即登录</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 购物车模态框 -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <button class="close-modal" id="closeCartModal">&times;</button>
+            <h2><i class="fas fa-shopping-cart"></i> 我的购物车</h2>
+            <div class="cart-items" id="cartItems">
+                <!-- 购物车商品会动态添加到这里 -->
+                <div class="empty-cart" id="emptyCart">
+                    <i class="fas fa-shopping-cart" style="font-size:3rem;color:#ccc;margin-bottom:1rem"></i>
+                    <p>购物车是空的</p>
+                </div>
+            </div>
+            <div class="cart-summary">
+                <div class="cart-total">
+                    <span>总计：</span>
+                    <span class="total-price" id="cartTotalPrice">¥0.00</span>
+                </div>
+                <div class="cart-actions">
+                    <button class="cart-action-btn" id="continueShopping">继续购物</button>
+                    <button class="cart-action-btn checkout-btn" id="checkoutBtn">去结算</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>春韵-文学书苑</h1>
+                <div class="header-subtitle">探索文字之美，品味文学之韵</div>
+                <div class="quote">"书籍是屹立在时间的汪洋大海中的灯塔。" — 惠普尔</div>
+            </div>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="#"><i class="fas fa-home"></i> 首页</a></li>
+                <li><a href="#"><i class="fas fa-book"></i> 文学经典</a></li>
+                <li><a href="#"><i class="fas fa-pen-fancy"></i> 现代文学</a></li>
+                <li><a href="#"><i class="fas fa-globe-americas"></i> 世界文学</a></li>
+                <li><a href="#"><i class="fas fa-user-edit"></i> 作家专栏</a></li>
+                <li><a href="#"><i class="fas fa-envelope"></i> 联系我们</a></li>
+            </ul>
+            
+            <!-- 登录注册和购物车链接 -->
+            <div class="auth-links">
+                <a href="#" class="login-link" id="loginBtn"><i class="fas fa-user"></i> 登录/注册</a>
+                <a href="#" class="cart-link" id="cartBtn">
+                    <i class="fas fa-shopping-cart"></i> 购物车
+                    <span class="cart-count" id="cartCount">0</span>
+                </a>
+            </div>
+        </nav>
+        
+        <div class="main-content">
+            <div class="highlight-box"><i class="fas fa-gift"></i> 本周推荐：经典文学作品限时特惠，满100减20！</div>
+            
+            <aside class="left-sidebar">
+                <h2><i class="fas fa-list"></i> 文学分类</h2>
+                <ul class="sidebar-list">
+                    <li><a href="#"><i class="fas fa-scroll"></i> 古典文学</a></li>
+                    <li><a href="#"><i class="fas fa-heart"></i> 浪漫主义</a></li>
+                    <li><a href="#"><i class="fas fa-city"></i> 现代主义</a></li>
+                    <li><a href="#"><i class="fas fa-hat-wizard"></i> 魔幻现实主义</a></li>
+                    <li><a href="#"><i class="fas fa-mask"></i> 戏剧文学</a></li>
+                    <li><a href="#"><i class="fas fa-pen-fancy"></i> 散文随笔</a></li>
+                </ul>
+                
+                <div class="decorative-line"></div>
+                <h2><i class="fas fa-fire"></i> 热门标签</h2>
+                <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1rem">
+                    <span style="background:#e8e2d1;padding:0.3rem 0.7rem;border-radius:20px;font-size:0.8rem">经典名著</span>
+                    <span style="background:#e8e2d1;padding:0.3rem 0.7rem;border-radius:20px;font-size:0.8rem">畅销小说</span>
+                    <span style="background:#e8e2d1;padding:0.3rem 0.7rem;border-radius:20px;font-size:0.8rem">文学奖作品</span>
+                    <span style="background:#e8e2d1;padding:0.3rem 0.7rem;border-radius:20px;font-size:0.8rem">作家签名版</span>
+                </div>
+            </aside>
+            
+            <main class="content">
+                <h2><i class="fas fa-book"></i> 经典文学作品</h2>                              
+                <h3 class="category-title">古典文学</h3>
+                <div class="book-container">
+                    <div class="book-item" data-book-id="1" data-price="45.80">
+                        <div class="book-image"><img src="../image/红楼梦.jpg" alt="红楼梦"></div>
+                        <div class="book-info">
+                            <div class="book-title">红楼梦</div>
+                            <div class="book-author">作者：曹雪芹</div>
+                            <div class="book-description">中国古典四大名著之首，一部具有世界影响力的人情小说，中国封建社会的百科全书。</div>
+                            <div class="price-section">
+                                <div>
+                                    <span class="price">¥45.80</span>
+                                    <span class="original-price">¥58.00</span>
+                                    <span class="discount">7.9折</span>
+                                </div>
+                                <button class="btn add-cart-btn"><i class="fas fa-cart-plus"></i> 加入书架</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="book-item" data-book-id="2" data-price="32.50">
+                        <div class="book-image"><img src="../image/诗经.jpg" alt="诗经"></div>
+                        <div class="book-info">
+                            <div class="book-title">诗经</div>
+                            <div class="book-author">作者：佚名（收集整理）</div>
+                            <div class="book-description">中国第一部诗歌总集，收集了西周初年至春秋中叶的诗歌，共311篇。</div>
+                            <div class="price-section">
+                                <div>
+                                    <span class="price">¥32.50</span>
+                                    <span class="original-price">¥40.00</span>
+                                    <span class="discount">8.1折</span>
+                                </div>
+                                <button class="btn add-cart-btn"><i class="fas fa-cart-plus"></i> 加入书架</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="category-title">现代文学</h3>
+                <div class="book-container">
+                    <div class="book-item" data-book-id="3" data-price="28.60">
+                        <div class="book-image"><img src="../image/围城.jpg" alt="围城"></div>
+                        <div class="book-info">
+                            <div class="book-title">围城</div>
+                            <div class="book-author">作者：钱钟书</div>
+                            <div class="book-description">中国现代文学史上一部风格独特的讽刺小说，被誉为"新儒林外史"。</div>
+                            <div class="price-section">
+                                <div>
+                                    <span class="price">¥28.60</span>
+                                    <span class="original-price">¥35.00</span>
+                                    <span class="discount">8.2折</span>
+                                </div>
+                                <button class="btn add-cart-btn"><i class="fas fa-cart-plus"></i> 加入书架</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="book-item" data-book-id="4" data-price="24.80">
+                        <div class="book-image"><img src="../image/边城.jpg" alt="边城"></div>
+                        <div class="book-info">
+                            <div class="book-title">边城</div>
+                            <div class="book-author">作者：沈从文</div>
+                            <div class="book-description">以20世纪30年代川湘交界的边城小镇茶峒为背景，描绘了湘西地区特有的风土人情。</div>
+                            <div class="price-section">
+                                <div>
+                                    <span class="price">¥24.80</span>
+                                    <span class="original-price">¥30.00</span>
+                                    <span class="discount">8.3折</span>
+                                </div>
+                                <button class="btn add-cart-btn"><i class="fas fa-cart-plus"></i> 加入书架</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            
+            <aside class="right-sidebar">             
+                <div class="decorative-line"></div>               
+                <h2><i class="fas fa-user-tie"></i> 文学大师</h2>
+                <ul class="sidebar-list">
+                    <li><a href="#">鲁迅</a></li>
+                    <li><a href="#">老舍</a></li>
+                    <li><a href="#">巴金</a></li>
+                    <li><a href="#">茅盾</a></li>
+                    <li><a href="#">沈从文</a></li>
+                </ul>
+                
+                <div class="decorative-line"></div>
+                <div style="background:linear-gradient(135deg,#d4a76a,#b08d5a);color:white;padding:15px;margin:15px 0;border-radius:5px">
+                    <h3><i class="fas fa-crown"></i> 会员专享</h3>
+                    <p style="margin-top:0.5rem;font-size:0.9rem">借阅图书免运费，参与线下活动优先报名！</p>
+                </div>
+                
+                <div class="decorative-line"></div>
+                <h2><i class="fas fa-newspaper"></i> 文学资讯</h2>
+                <div style="margin-top:1rem">
+                    <div style="padding:0.8rem 0;border-bottom:1px dashed #d4c9b8">
+                        <div style="font-weight:600;font-size:0.9rem">2023年诺贝尔文学奖揭晓</div>
+                        <div style="font-size:0.8rem;color:#666;margin-top:0.3rem">2天前</div>
+                    </div>
+                    <div style="padding:0.8rem 0;border-bottom:1px dashed #d4c9b8">
+                        <div style="font-weight:600;font-size:0.9rem">全国文学创作大赛征稿启事</div>
+                        <div style="font-size:0.8rem;color:#666;margin-top:0.3rem">5天前</div>
+                    </div>
+                    <div style="padding:0.8rem 0">
+                        <div style="font-weight:600;font-size:0.9rem">著名作家新书分享会即将举行</div>
+                        <div style="font-size:0.8rem;color:#666;margin-top:0.3rem">1周前</div>
+                    </div>
+                </div>
+            </aside>
+        </div>       
+        <footer>
+            <p>春韵-文学书苑</p>
+            <p style="margin-top:1rem;font-size:0.9rem;opacity:0.8">© 2023 春韵-文学书苑 版权所有</p>
+        </footer>
+    </div>
+
+    <script>
+        // 购物车数据
+        let cart = [];
+        let cartCount = 0;
+        let cartTotal = 0;
+        
+        // 用户登录状态
+        let isLoggedIn = false;
+        let currentUser = null;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化所有功能
+            initLoginModal();
+            initCart();
+            initBookInteractions();
+            
+            // 检查是否已保存登录状态
+            const savedUser = localStorage.getItem('bookstore_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                isLoggedIn = true;
+                const loginBtn = document.getElementById('loginBtn');
+                if (loginBtn) {
+                    loginBtn.innerHTML = `<i class="fas fa-user"></i> ${currentUser.username}`;
+                }
+            }
+        });
+        
+        function showMessage(text) {
+            const toast = document.getElementById('messageToast');
+            if (toast) {
+                toast.querySelector('.toast-text').textContent = text;
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+        }
+        
+        // 初始化登录模态框功能
+        function initLoginModal() {
+            const loginBtn = document.getElementById('loginBtn');
+            const loginModal = document.getElementById('loginModal');
+            const registerModal = document.getElementById('registerModal');
+            const closeModal = document.getElementById('closeModal');
+            const closeRegisterModal = document.getElementById('closeRegisterModal');
+            const registerLink = document.getElementById('registerLink');
+            const loginLink = document.getElementById('loginLink');
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            
+            if (!loginBtn || !loginModal || !registerModal) {
+                console.error('登录/注册元素未找到');
+                return;
+            }
+
+            // 打开登录模态框
+            loginBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (isLoggedIn) {
+                    // 如果已登录，显示用户信息
+                    showMessage(`欢迎回来，${currentUser.username}！`);
+                } else {
+                    // 如果未登录，显示登录模态框
+                    loginModal.style.display = 'flex';
+                }
+            });
+
+            // 关闭登录模态框
+            closeModal.addEventListener('click', function() {
+                loginModal.style.display = 'none';
+            });
+
+            // 关闭注册模态框
+            closeRegisterModal.addEventListener('click', function() {
+                registerModal.style.display = 'none';
+            });
+
+            // 点击模态框外部关闭
+            loginModal.addEventListener('click', function(e) {
+                if (e.target === loginModal) {
+                    loginModal.style.display = 'none';
+                }
+            });
+
+            registerModal.addEventListener('click', function(e) {
+                if (e.target === registerModal) {
+                    registerModal.style.display = 'none';
+                }
+            });
+
+            // 注册链接点击事件
+            registerLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginModal.style.display = 'none';
+                registerModal.style.display = 'flex';
+            });
+
+            // 登录链接点击事件
+            loginLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                registerModal.style.display = 'none';
+                loginModal.style.display = 'flex';
+            });
+
+            // 登录表单提交
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                const remember = document.getElementById('remember').checked;
+                
+                // 简单验证
+                if (!username || !password) {
+                    showMessage('请填写用户名和密码！');
+                    return;
+                }
+                
+                // 模拟登录成功
+                isLoggedIn = true;
+                currentUser = {
+                    username: username,
+                    remember: remember
+                };
+                
+                // 更新登录按钮状态
+                loginBtn.innerHTML = `<i class="fas fa-user"></i> ${username}`;
+                showMessage(`欢迎回来，${username}！`);
+                loginModal.style.display = 'none';
+                
+                // 如果勾选了"记住我"
+                if (remember) {
+                    localStorage.setItem('bookstore_user', JSON.stringify(currentUser));
+                }
+            });
+
+            // 注册表单提交
+            registerForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const username = document.getElementById('reg-username').value;
+                const email = document.getElementById('reg-email').value;
+                const password = document.getElementById('reg-password').value;
+                const confirmPassword = document.getElementById('reg-confirm-password').value;
+                const agreeTerms = document.getElementById('agree-terms').checked;
+                
+                // 验证
+                if (!username || !email || !password || !confirmPassword) {
+                    showMessage('请填写所有必填项！');
+                    return;
+                }
+                
+                if (!agreeTerms) {
+                    showMessage('请阅读并同意服务条款！');
+                    return;
+                }
+                
+                if (password !== confirmPassword) {
+                    showMessage('两次输入的密码不一致！');
+                    return;
+                }
+                
+                if (password.length < 6) {
+                    showMessage('密码长度至少6位！');
+                    return;
+                }
+                
+                // 模拟注册成功
+                isLoggedIn = true;
+                currentUser = {
+                    username: username,
+                    email: email
+                };
+                
+                // 更新登录按钮状态
+                loginBtn.innerHTML = `<i class="fas fa-user"></i> ${username}`;
+                showMessage(`注册成功，欢迎 ${username}！`);
+                registerModal.style.display = 'none';
+            });
+            
+            // 添加ESC键关闭模态框
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    loginModal.style.display = 'none';
+                    registerModal.style.display = 'none';
+                }
+            });
+        }
+        
+        // 购物车相关功能
+        function initCart() {
+            const cartBtn = document.getElementById('cartBtn');
+            const cartModal = document.getElementById('cartModal');
+            const closeCartModal = document.getElementById('closeCartModal');
+            const continueShopping = document.getElementById('continueShopping');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            
+            if (!cartBtn) return;
+            
+            // 加载购物车数据
+            loadCartFromStorage();
+            
+            // 打开购物车
+            cartBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                updateCartModal();
+                cartModal.style.display = 'flex';
+            });
+            
+            // 关闭购物车
+            if (closeCartModal) {
+                closeCartModal.addEventListener('click', function() {
+                    cartModal.style.display = 'none';
+                });
+            }
+            
+            // 继续购物
+            if (continueShopping) {
+                continueShopping.addEventListener('click', function() {
+                    cartModal.style.display = 'none';
+                });
+            }
+            
+            // 结算按钮
+            if (checkoutBtn) {
+                checkoutBtn.addEventListener('click', function() {
+                    if (cart.length === 0) {
+                        showMessage('购物车是空的！');
+                        return;
+                    }
+                    
+                    if (!isLoggedIn) {
+                        showMessage('请先登录！');
+                        document.getElementById('loginModal').style.display = 'flex';
+                        return;
+                    }
+                    
+                    showMessage(`正在结算，总计：¥${cartTotal.toFixed(2)}`);
+                    // 这里可以添加实际结算逻辑
+                });
+            }
+            
+            // 点击外部关闭
+            if (cartModal) {
+                cartModal.addEventListener('click', function(e) {
+                    if (e.target === cartModal) {
+                        cartModal.style.display = 'none';
+                    }
+                });
+            }
+        }
+        
+        function addToCart(button) {
+            if (!isLoggedIn) {
+                showMessage('请先登录！');
+                document.getElementById('loginModal').style.display = 'flex';
+                return;
+            }
+            
+            const bookItem = button.closest('.book-item');
+            const bookId = parseInt(bookItem.dataset.bookId);
+            const bookTitle = bookItem.querySelector('.book-title').textContent;
+            const price = parseFloat(bookItem.dataset.price);
+            
+            // 检查是否已在购物车
+            const existingItem = cart.find(item => item.id === bookId);
+            
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({
+                    id: bookId,
+                    title: bookTitle,
+                    price: price,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            showMessage(`已添加《${bookTitle}》到购物车`);
+        }
+        
+        function updateCart() {
+            // 计算总数
+            cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+            cartTotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            
+            // 更新购物车数量显示
+            const cartCountElement = document.getElementById('cartCount');
+            if (cartCountElement) {
+                cartCountElement.textContent = cartCount;
+                cartCountElement.style.display = cartCount > 0 ? 'inline-block' : 'none';
+            }
+            
+            // 保存到本地存储
+            saveCartToStorage();
+            
+            // 更新购物车模态框
+            updateCartModal();
+        }
+        
+        function updateCartModal() {
+            const cartItems = document.getElementById('cartItems');
+            const emptyCart = document.getElementById('emptyCart');
+            const cartTotalPrice = document.getElementById('cartTotalPrice');
+            
+            if (!cartItems || !emptyCart || !cartTotalPrice) return;
+            
+            // 清空当前内容
+            cartItems.innerHTML = '';
+            
+            if (cart.length === 0) {
+                // 购物车为空
+                emptyCart.style.display = 'block';
+                cartItems.appendChild(emptyCart);
+            } else {
+                // 购物车有商品
+                emptyCart.style.display = 'none';
+                
+                cart.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <div class="cart-item-info">
+                            <h4>${item.title}</h4>
+                            <p>¥${item.price.toFixed(2)} × ${item.quantity}</p>
+                        </div>
+                        <div class="cart-item-controls">
+                            <button class="cart-item-btn decrease-btn" data-id="${item.id}">-</button>
+                            <span class="cart-item-quantity">${item.quantity}</span>
+                            <button class="cart-item-btn increase-btn" data-id="${item.id}">+</button>
+                            <button class="cart-item-btn remove-btn" data-id="${item.id}"><i class="fas fa-trash"></i></button>
+                        </div>
+                        <div class="cart-item-total">
+                            ¥${(item.price * item.quantity).toFixed(2)}
+                        </div>
+                    `;
+                    cartItems.appendChild(cartItem);
+                });
+                
+                // 添加事件监听
+                document.querySelectorAll('.increase-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const id = parseInt(this.dataset.id);
+                        const item = cart.find(item => item.id === id);
+                        if (item) {
+                            item.quantity++;
+                            updateCart();
+                        }
+                    });
+                });
+                
+                document.querySelectorAll('.decrease-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const id = parseInt(this.dataset.id);
+                        const itemIndex = cart.findIndex(item => item.id === id);
+                        if (itemIndex !== -1) {
+                            if (cart[itemIndex].quantity > 1) {
+                                cart[itemIndex].quantity--;
+                            } else {
+                                cart.splice(itemIndex, 1);
+                            }
+                            updateCart();
+                        }
+                    });
+                });
+                
+                document.querySelectorAll('.remove-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const id = parseInt(this.dataset.id);
+                        const itemIndex = cart.findIndex(item => item.id === id);
+                        if (itemIndex !== -1) {
+                            cart.splice(itemIndex, 1);
+                            updateCart();
+                        }
+                    });
+                });
+            }
+            
+            // 更新总价
+            cartTotalPrice.textContent = `¥${cartTotal.toFixed(2)}`;
+        }
+        
+        function saveCartToStorage() {
+            localStorage.setItem('bookstore_cart', JSON.stringify(cart));
+        }
+        
+        function loadCartFromStorage() {
+            const savedCart = localStorage.getItem('bookstore_cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCart();
+            }
+        }
+        
+        // 初始化书籍交互
+        function initBookInteractions() {
+            // 为加入购物车按钮添加事件
+            document.querySelectorAll('.add-cart-btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    addToCart(this);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
